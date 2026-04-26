@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #2d6cdf;
+  color: white;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #1f4fb5;
+}
+
+.players {
+  margin: 10px 0;
+}
+
+.player-chip {
+  display: inline-block;
+  background: #e6ebf2;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 3px;
+  font-size: 14px;
+}
+
+.round {
+  margin-top: 25px;
+}
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.score-input {
+  width: 60px;
+  text-align: center;
+}
+
+.table {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px;
+  padding: 6px 0;
+  align-items: center;
+}
+
+.row span {
+  text-align: center;
+}
+
+.row span:first-child {
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+
+  .container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input, button {
+    width: 100%;
+  }
+
+  .match {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .score-input {
+    width: 100%;
+  }
+
+  .row {
+    grid-template-columns: 1fr 60px 60px;
+    font-size: 14px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 40px;
+  padding: 15px 0;
+  opacity: 0.8;
+}
