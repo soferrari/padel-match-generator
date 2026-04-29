@@ -194,7 +194,7 @@ export default function App() {
 <div className="header">
   <img src={padelIcon} alt="padel" className="logo" />
   <div>
-    <h1>Padel League</h1>
+    <h1>Padel Super 8</h1>
     <p className="subtitle">Gestión de partidos y ranking</p>
   </div>
 </div>
@@ -233,19 +233,40 @@ export default function App() {
           <h3>Ronda {rIndex + 1}</h3>
 
           {round.map((m, mIndex) => (
-            <div key={mIndex} className="match">
-             <div>
-  <strong>{m.teamA.join(" & ")}</strong> vs <strong>{m.teamB.join(" & ")}</strong>
-</div>
+  <div key={mIndex} className="match">
+    {/* Pareja 1 */}
+    <div className="team team-a">
+      <span className="players">{m.teamA.join(" & ")}</span>
+      <input
+        type="number"
+        className="score-input input-a"
+        value={m.score?.split("-")[0] || ""}
+        onChange={e => {
+          const left = e.target.value;
+          const right = m.score?.split("-")[1] || "";
+          updateScore(rIndex, mIndex, `${left}-${right}`);
+        }}
+      />
+    </div>
 
-              <input
-                className="score-input"
-                placeholder="6-4"
-                value={m.score}
-                onChange={e => updateScore(rIndex, mIndex, e.target.value)}
-              />
-            </div>
-          ))}
+    <span className="separator">-</span>
+
+    {/* Pareja 2 */}
+    <div className="team team-b">
+      <input
+        type="number"
+        className="score-input input-b"
+        value={m.score?.split("-")[1] || ""}
+        onChange={e => {
+          const left = m.score?.split("-")[0] || "";
+          const right = e.target.value;
+          updateScore(rIndex, mIndex, `${left}-${right}`);
+        }}
+      />
+      <span className="players">{m.teamB.join(" & ")}</span>
+    </div>
+  </div>
+))}
         </div>
       ))}
 

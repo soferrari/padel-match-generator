@@ -59,22 +59,6 @@ button:hover {
   margin-top: 25px;
 }
 
-.match {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fafafa;
-  border: 1px solid #eee;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.score-input {
-  width: 60px;
-  text-align: center;
-}
-
 .table {
   margin-top: 20px;
   border-top: 1px solid #ddd;
@@ -96,41 +80,6 @@ button:hover {
   text-align: left;
 }
 
-@media (max-width: 600px) {
-
-  .container {
-    padding: 15px;
-    margin: 10px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  .input-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  input, button {
-    width: 100%;
-  }
-
-  .match {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .score-input {
-    width: 100%;
-  }
-
-  .row {
-    grid-template-columns: 1fr 60px 60px;
-    font-size: 14px;
-  }
-}
 
 * {
   box-sizing: border-box;
@@ -138,9 +87,33 @@ button:hover {
 
 .header {
   display: flex;
-  align-items: center;
+  align-items: center; /* Mantiene el logo centrado verticalmente con el grupo de texto */
   gap: 12px;
   margin-bottom: 20px;
+  text-align: left; /* Fuerza la alineación a la izquierda de todo el contenido */
+}
+
+.header > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Asegura que los hijos (h1 y p) se peguen a la izquierda */
+}
+
+.header h1 {
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Sobrescribe el "text-align: center" que tenías en el h1 global */
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header .subtitle {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 .logo {
@@ -151,7 +124,9 @@ button:hover {
 }
 
 h1 {
-  margin: 0;
+  margin: 0; 
+  padding: 0;
+  line-height: 1.1;
   font-size: 22px;
   font-weight: 700;
   color: #111827;
@@ -159,8 +134,10 @@ h1 {
 
 .subtitle {
   margin: 0;
+  padding: 0;
   font-size: 13px;
   color: #6b7280;
+  line-height: 1.4;
 }
 
 .footer {
@@ -170,4 +147,139 @@ h1 {
   margin-top: 40px;
   padding: 15px 0;
   opacity: 0.8;
+}
+
+
+.match {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el bloque de partido */
+  gap: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1; /* Hace que ambas parejas ocupen el mismo espacio */
+}
+
+/* En Desktop: Pareja A a la izquierda, su input a su derecha */
+.team-a {
+  justify-content: flex-end;
+}
+
+/* En Desktop: Pareja B a la derecha, su input a su izquierda */
+.team-b {
+  justify-content: flex-start;
+}
+
+.score-input {
+  width: 45px;
+  height: 35px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-shrink: 0; /* Evita que se achiquen */
+}
+
+.separator {
+  font-weight: bold;
+  color: #6b7280;
+  padding: 0 5px;
+}
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+
+  .container {
+    padding: 12px;
+  }
+
+  .header {
+    gap: 8px; /* Un poco más de espacio para el texto en pantallas pequeñas */
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  /* inputs en columna */
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group input,
+  .input-group button {
+    width: 100%;
+  }
+
+  /* chips */
+  .player-chip {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .match {
+    flex-direction: column; /* Apila las parejas */
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .separator {
+    display: none; /* Escondemos el guion central en mobile */
+  }
+
+  .team {
+    width: 100%;
+    justify-content: space-between !important; /* Texto izquierda, Input derecha[cite: 1] */
+  }
+
+  /* Forzamos que en mobile el input SIEMPRE esté a la derecha */
+  .team-a, .team-b {
+    flex-direction: row !important; 
+  }
+
+  .team-b .players {
+    order: 1; /* El nombre primero */
+  }
+
+  .team-b .score-input {
+    order: 2; /* El input después */
+  }
+
+  .players {
+    text-align: left !important;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Evita que nombres largos rompan el layout[cite: 1] */
+  }
+
+  .score-input {
+    width: 50px;
+    min-width: 50px; /* Tamaño fijo garantizado[cite: 1] */
+  }
+
+
+  /* tabla más compacta */
+  .row {
+    grid-template-columns: 1fr 50px 50px;
+    font-size: 13px;
+  }
+
+  .footer {
+    font-size: 11px;
+  }
+
 }
