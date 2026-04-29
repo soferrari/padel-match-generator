@@ -136,6 +136,11 @@ export default function App() {
   }, [courts]);
 
   const addPlayer = () => {
+    if (players.length >= 8) {
+      alert("El máximo es de 8 jugadores.");
+      return;
+    }
+    
     if (input.trim()) {
       setPlayers([...players, input.trim()]);
       setInput("");
@@ -143,6 +148,10 @@ export default function App() {
   };
 
   const createRounds = () => {
+    if (players.length < 4) {
+      alert("Se necesitan al menos 4 jugadores.");
+      return;
+    }
     setRounds(generateRounds(players, Number(courts)));
   };
 
@@ -205,17 +214,24 @@ export default function App() {
           onChange={e => setInput(e.target.value)}
           placeholder="Nombre jugador"
         />
-        <button onClick={addPlayer}>Agregar</button>
+       <button onClick={addPlayer} disabled={players.length >= 8}>
+  Agregar
+</button>
       </div>
 
       <div className="input-group">
-        <label>Canchas:</label>
-        <input
-          type="number"
-          value={courts}
-          min="1"
-          onChange={e => setCourts(e.target.value)}
-        />
+      <label>Canchas:</label>
+  <input
+    type="number"
+    value={courts}
+    min="1"
+    max="2" // Restricción visual en el input[cite: 1]
+    onChange={e => {
+      // Validación lógica para asegurar que esté entre 1 y 2
+      const val = Math.max(1, Math.min(2, Number(e.target.value)));
+      setCourts(val);
+    }}
+  />
         <button onClick={createRounds}>Generar</button>
         <button onClick={resetAll} style={{ background: "#dc3545" }}>
           Reset

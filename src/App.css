@@ -22,6 +22,11 @@ h1 {
   margin-bottom: 15px;
 }
 
+.input-group button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
 input {
   padding: 8px;
   border-radius: 6px;
@@ -43,16 +48,23 @@ button:hover {
 }
 
 .players {
-  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 8px;
+  margin: 15px 0;
+  justify-content: flex-start; 
 }
 
 .player-chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   background: #e6ebf2;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 20px;
-  margin: 3px;
   font-size: 14px;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  white-space: nowrap; 
 }
 
 .round {
@@ -224,12 +236,6 @@ h1 {
     width: 100%;
   }
 
-  /* chips */
-  .player-chip {
-    font-size: 12px;
-    padding: 5px 8px;
-  }
-
   .match {
     flex-direction: column; /* Apila las parejas */
     align-items: stretch;
@@ -259,11 +265,13 @@ h1 {
   }
 
   .players {
-    text-align: left !important;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Evita que nombres largos rompan el layout[cite: 1] */
+    gap: 6px; /* Espacio más compacto entre nombres */
+    margin: 10px 0;
+  }
+
+  .player-chip {
+    font-size: 13px; /* Texto un poco más pequeño para que quepan más[cite: 1] */
+    padding: 4px 10px;
   }
 
   .score-input {
