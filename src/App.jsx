@@ -168,23 +168,34 @@ export default function App() {
     setCourts(1);
   };
 
-  const calculatePoints = () => {
+const calculatePoints = () => {
     const stats = {};
     players.forEach(p =>
-      (stats[p] = { games: 0, wins: 0 })
+      (stats[p] = { games: 0, wins: 0, gamesAgainst: 0 }) // Añadimos gamesAgainst
     );
 
     rounds.forEach(r => {
       r.forEach(m => {
         if (!m.score) return;
-        const [a, b] = m.score.split("-").map(Number);
+        const parts = m.score.split("-");
+        // Validamos que ambos lados del score existan
+        if (parts.length !== 2 || parts[0] === "" || parts[1] === "") return;
+        
+        const a = Number(parts[0]);
+        const b = Number(parts[1]);
         if (isNaN(a) || isNaN(b)) return;
 
-        // sumar games
-        m.teamA.forEach(p => (stats[p].games += a));
-        m.teamB.forEach(p => (stats[p].games += b));
+        // Sumar games a favor y en contra
+        m.teamA.forEach(p => {
+          stats[p].games += a;
+          stats[p].gamesAgainst += b;
+        });
+        m.teamB.forEach(p => {
+          stats[p].games += b;
+          stats[p].gamesAgainst += a;
+        });
 
-        // sumar partidos ganados
+        // Sumar partidos ganados
         if (a > b) {
           m.teamA.forEach(p => (stats[p].wins += 1));
         } else if (b > a) {
@@ -295,19 +306,26 @@ export default function App() {
     <span>Games</span>
   </div>
 
-  {Object.entries(stats)
-    .sort((a, b) => b[1].wins - a[1].wins || b[1].games - a[1].games)
-    .map(([p, s]) => (
-      <div key={p} className="row">
-        <span>{p}</span>
-        <span>{s.wins}</span>
-        <span>{s.games}</span>
-      </div>
-    ))}
+{Object.entries(stats)
+  .sort((a, b) => {
+    // 1er Criterio: Partidos Ganados
+    if (b[1].wins !== a[1].wins) return b[1].wins - a[1].wins;
+    // 2do Criterio: Diferencia de Games (GD)
+    const diffA = a[1].games - a[1].gamesAgainst;
+    const diffB = b[1].games - b[1].gamesAgainst;
+    return diffB - diffA;
+  })
+  .map(([p, s]) => (
+    <div key={p} className="row">
+      <span>{p}</span>
+      <span>{s.wins}</span>
+      <span>{s.games - s.gamesAgainst >= 0 ? `+${s.games - s.gamesAgainst}` : s.games - s.gamesAgainst}</span>
+    </div>
+  ))}
 </div>
 
 <div className="footer">
-  Padel League • v{pkg.version} • by Chechi
+  Padel League • v{pkg.version} • by S. Ferrari (chechi)
 </div>
     </div>
 
