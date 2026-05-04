@@ -117,7 +117,7 @@ export default function App() {
 
   const [courts, setCourts] = useState(() => {
     const saved = localStorage.getItem("courts");
-    return saved ? JSON.parse(saved) : 1;
+    return saved ? JSON.parse(saved) : 2;
   });
 
   const [input, setInput] = useState("");
