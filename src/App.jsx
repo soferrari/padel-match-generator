@@ -72,7 +72,6 @@ function generateRounds(players, courts) {
         const teamA = allPairs[bestPairAIdx];
         const teamB = allPairs[bestPairBIdx];
 
-        // Actualizar historial de oponentes
         [teamA.p1, teamA.p2].forEach(pA => {
           [teamB.p1, teamB.p2].forEach(pB => {
             opponentHistory.get(pA).set(pB, (opponentHistory.get(pA).get(pB) || 0) + 1);
