@@ -88,7 +88,6 @@ function generateRounds(players, courts) {
         playersInRound.add(teamA.p1); playersInRound.add(teamA.p2);
         playersInRound.add(teamB.p1); playersInRound.add(teamB.p2);
 
-        // Eliminar de la lista (el índice mayor primero para no alterar el menor)
         allPairs.splice(bestPairBIdx, 1);
         allPairs.splice(bestPairAIdx, 1);
         madeProgressInRound = true;
